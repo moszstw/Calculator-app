@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [input, setInput] = useState<string>("");
-
+  const [calculationTime, setCalculationTime] = useState<number | null>(null);
   const handleButtonClick = (value: string) => {
     if (input === "0" && value === "0") {
       return;
@@ -33,6 +33,7 @@ export default function Home() {
           },
         }
       );
+      setCalculationTime(response.data.calculationTime)
       setInput(response.data.result);
     } catch (error) {
       console.error("Error calculating:", error);
@@ -79,6 +80,11 @@ export default function Home() {
           C
         </button>
       </div>
+      {input !== null && (
+          <div className="result">
+            Result: Calculation Time: {calculationTime} ms
+          </div>
+        )}
     </div>
   );
 }

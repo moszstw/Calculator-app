@@ -13,10 +13,12 @@ app.use(cors());
 
 app.post('/api/calculate', (req, res) => {
   const { expression } = req.body;
-
+  const startTime = performance.now();
   try {
     const result = eval(expression);
-    res.json({ result });
+    const endTime = performance.now();
+    const calculationTime = endTime - startTime;
+    res.json({ result, calculationTime});
   } catch (error) {
     console.error('Error calculating:', error);
     res.status(500).json({ error: 'Error calculating expression' });
